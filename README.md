@@ -18,6 +18,7 @@ L'application offre une interface intuitive et élégante pour documenter tous l
   - Informations sur l'équipage
 - **Interface utilisateur intuitive** : Navigation simple entre les différentes sections de l'application
 - **Stockage local** : Toutes les données sont stockées localement sur votre appareil
+- **Thème clair/sombre** : Support des modes clair et sombre avec option de suivre les paramètres système
 
 ## Captures d'écran
 
@@ -30,6 +31,8 @@ L'application offre une interface intuitive et élégante pour documenter tous l
 - **Expo Router** : Système de navigation basé sur des fichiers
 - **AsyncStorage** : Stockage local des données sur l'appareil
 - **Lucide Icons** : Bibliothèque d'icônes pour l'interface utilisateur
+- **Jest** : Framework de test pour les tests unitaires et d'intégration
+- **ESLint & Prettier** : Outils pour maintenir un code propre et cohérent
 
 ## Prérequis
 
@@ -70,18 +73,78 @@ yarn dev
   - **(tabs)** : Organisation des onglets de navigation
   - **flight-details.tsx** : Écran de détails d'un vol
   - **edit-flight.tsx** : Écran de modification d'un vol
+  - **settings.tsx** : Écran des paramètres de l'application
 
 - **/components** : Composants réutilisables 
   - **AirportInput.tsx** : Composant pour la sélection des aéroports
+  - **ThemeSelector.tsx** : Composant pour changer le thème de l'application
+
+- **/theme** : Configuration du système de thèmes
+  - **colors.ts** : Définitions des couleurs pour les thèmes clair et sombre
+  - **ThemeContext.tsx** : Contexte React pour gérer l'état du thème
 
 - **/assets** : Ressources statiques (images, etc.)
+
+- **/__tests__** : Tests unitaires et d'intégration
 
 ### Scripts disponibles
 
 - `npm run dev` ou `yarn dev` : Lance le serveur de développement Expo
 - `npm run build:web` ou `yarn build:web` : Exporte l'application pour le web
+- `npm run lint` ou `yarn lint` : Vérifie le code avec ESLint
+- `npm run lint:fix` ou `yarn lint:fix` : Corrige automatiquement les problèmes de linting
+- `npm run format` ou `yarn format` : Formate le code avec Prettier
+- `npm run test` ou `yarn test` : Lance les tests avec Jest
 - `npm run android` ou `yarn android` : Lance l'application sur un appareil/émulateur Android
 - `npm run ios` ou `yarn ios` : Lance l'application sur un appareil/émulateur iOS
+
+## Tests
+
+L'application utilise Jest pour les tests unitaires et d'intégration. Pour exécuter les tests :
+
+```bash
+npm run test
+# ou
+yarn test
+```
+
+Pour voir la couverture des tests :
+
+```bash
+npm run test:coverage
+# ou
+yarn test:coverage
+```
+
+## Gestion du code
+
+Le projet utilise ESLint et Prettier pour maintenir un code propre et cohérent :
+
+- ESLint vérifie la qualité du code et applique les bonnes pratiques
+- Prettier formate automatiquement le code selon des règles prédéfinies
+
+Pour vérifier et formater votre code :
+
+```bash
+# Vérification avec ESLint
+npm run lint
+
+# Correction automatique des problèmes détectés par ESLint
+npm run lint:fix
+
+# Formatage du code avec Prettier
+npm run format
+```
+
+## Système de thèmes
+
+L'application prend en charge les thèmes clair et sombre :
+
+- **Thème clair** : Design lumineux pour une utilisation diurne
+- **Thème sombre** : Design sombre pour réduire la fatigue oculaire
+- **Système** : Suit automatiquement les préférences de l'appareil
+
+Pour changer de thème, accédez à l'écran des paramètres depuis la barre de navigation.
 
 ## Déploiement
 
@@ -99,6 +162,9 @@ expo build:ios
 
 ## Feuille de route
 
+- [x] Ajout du support des thèmes clair/sombre
+- [x] Configuration du système de tests avec Jest
+- [x] Mise en place de ESLint et Prettier
 - [ ] Ajout de statistiques sur les vols (distance totale parcourue, heures de vol, etc.)
 - [ ] Synchronisation avec le cloud pour sauvegarder les données
 - [ ] Mode hors ligne avancé
