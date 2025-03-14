@@ -19,6 +19,7 @@ L'application offre une interface intuitive et élégante pour documenter tous l
 - **Interface utilisateur intuitive** : Navigation simple entre les différentes sections de l'application
 - **Stockage local** : Toutes les données sont stockées localement sur votre appareil
 - **Thème clair/sombre** : Support des modes clair et sombre avec option de suivre les paramètres système
+- **Synchronisation Google Sheets** : Exportez vos données de vol vers Google Sheets pour analyse et sauvegarde
 
 ## Captures d'écran
 
@@ -33,6 +34,7 @@ L'application offre une interface intuitive et élégante pour documenter tous l
 - **Lucide Icons** : Bibliothèque d'icônes pour l'interface utilisateur
 - **Jest** : Framework de test pour les tests unitaires et d'intégration
 - **ESLint & Prettier** : Outils pour maintenir un code propre et cohérent
+- **Google Sheets API** : Synchronisation des données avec Google Sheets
 
 ## Prérequis
 
@@ -51,7 +53,7 @@ cd mon-projet
 
 2. Installez les dépendances :
 ```bash
-npm install
+npm install --legacy-peer-deps
 # ou
 yarn install
 ```
@@ -64,6 +66,17 @@ yarn dev
 ```
 
 4. Scannez le code QR avec l'application Expo Go sur votre téléphone ou utilisez un émulateur.
+
+## Configuration de Google Sheets
+
+Pour utiliser la fonctionnalité de synchronisation avec Google Sheets, vous devez configurer les identifiants OAuth2 pour l'API Google Sheets :
+
+1. Accédez à [Google Cloud Console](https://console.cloud.google.com/)
+2. Créez un nouveau projet
+3. Activez l'API Google Sheets et l'API Google Drive
+4. Configurez l'écran de consentement OAuth
+5. Créez des identifiants OAuth2 pour une application Android/iOS
+6. Remplacez `YOUR_GOOGLE_CLIENT_ID` dans `services/GoogleSheetsService.ts` par votre ID client
 
 ## Guide de développement
 
@@ -78,10 +91,14 @@ yarn dev
 - **/components** : Composants réutilisables 
   - **AirportInput.tsx** : Composant pour la sélection des aéroports
   - **ThemeSelector.tsx** : Composant pour changer le thème de l'application
+  - **GoogleSheetsSync.tsx** : Composant pour la synchronisation avec Google Sheets
 
 - **/theme** : Configuration du système de thèmes
   - **colors.ts** : Définitions des couleurs pour les thèmes clair et sombre
   - **ThemeContext.tsx** : Contexte React pour gérer l'état du thème
+
+- **/services** : Services et API
+  - **GoogleSheetsService.ts** : Service pour l'intégration avec Google Sheets
 
 - **/assets** : Ressources statiques (images, etc.)
 
@@ -146,6 +163,21 @@ L'application prend en charge les thèmes clair et sombre :
 
 Pour changer de thème, accédez à l'écran des paramètres depuis la barre de navigation.
 
+## Synchronisation Google Sheets
+
+L'application permet de synchroniser vos données de vol avec Google Sheets pour analyse et sauvegarde :
+
+- **Connexion à Google** : Connectez-vous à votre compte Google via OAuth2
+- **Création de feuille** : Créez une nouvelle feuille Google Sheets dédiée
+- **Utilisation d'une feuille existante** : Spécifiez l'ID d'une feuille existante
+- **Synchronisation** : Exportez toutes vos données de vol vers Google Sheets
+
+Pour utiliser cette fonctionnalité :
+1. Accédez à l'écran "Paramètres"
+2. Dans la section "Synchronisation", connectez-vous à Google
+3. Créez une nouvelle feuille ou spécifiez l'ID d'une feuille existante
+4. Cliquez sur "Synchroniser maintenant" pour exporter vos données
+
 ## Déploiement
 
 ### Android
@@ -165,8 +197,8 @@ expo build:ios
 - [x] Ajout du support des thèmes clair/sombre
 - [x] Configuration du système de tests avec Jest
 - [x] Mise en place de ESLint et Prettier
+- [x] Synchronisation des données avec Google Sheets
 - [ ] Ajout de statistiques sur les vols (distance totale parcourue, heures de vol, etc.)
-- [ ] Synchronisation avec le cloud pour sauvegarder les données
 - [ ] Mode hors ligne avancé
 - [ ] Intégration de cartes pour visualiser les itinéraires de vol
 - [ ] Exportation des données de vol au format PDF ou CSV
