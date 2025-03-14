@@ -2,8 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { ArrowLeft, Settings as SettingsIcon } from 'lucide-react-native';
+import { ArrowLeft, Settings as SettingsIcon, CloudSync, Palette } from 'lucide-react-native';
 import ThemeSelector from '../components/ThemeSelector';
+import GoogleSheetsSync from '../components/GoogleSheetsSync';
 import { useTheme } from '../theme/ThemeContext';
 
 export default function Settings() {
@@ -18,19 +19,28 @@ export default function Settings() {
           onPress={() => router.back()}>
           <ArrowLeft size={24} color={colors.primary} />
         </TouchableOpacity>
-        <Text style={[styles.title, { color: colors.textPrimary }]}>Settings</Text>
+        <Text style={[styles.title, { color: colors.textPrimary }]}>Paramètres</Text>
       </View>
 
       <ScrollView style={styles.scrollView}>
+        {/* Section Apparence */}
         <View style={styles.section}>
           <View style={[styles.sectionHeader, { borderBottomColor: colors.divider }]}>
-            <SettingsIcon size={20} color={colors.icon} />
-            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>App Preferences</Text>
+            <Palette size={20} color={colors.icon} />
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Apparence</Text>
           </View>
           
           <ThemeSelector />
+        </View>
+        
+        {/* Section Synchronisation */}
+        <View style={styles.section}>
+          <View style={[styles.sectionHeader, { borderBottomColor: colors.divider }]}>
+            <CloudSync size={20} color={colors.icon} />
+            <Text style={[styles.sectionTitle, { color: colors.textPrimary }]}>Synchronisation</Text>
+          </View>
           
-          {/* Ici, vous pouvez ajouter d'autres sections de paramètres selon les besoins */}
+          <GoogleSheetsSync />
         </View>
         
         <View style={styles.appInfo}>
